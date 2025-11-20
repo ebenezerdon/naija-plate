@@ -30,6 +30,8 @@
     var savedShop = w.App.Store.get(KEYS.SHOPPING, { items: [] });
     state.shopping = savedShop && savedShop.items ? savedShop : { items: [] };
     migrateRecipeImages();
+
+    migrateRecipeContent();
   }
 
   function saveRecipes(){ w.App.Store.set(KEYS.RECIPES, state.recipes); }
@@ -50,6 +52,32 @@
       if(replacements[r.id]){
         if(r.image !== replacements[r.id]){
           r = Object.assign({}, r, { image: replacements[r.id] });
+          changed = true;
+        }
+      }
+      return r;
+    });
+    if(changed){ saveRecipes(); }
+
+  }
+
+  function migrateRecipeContent(){
+    var defaults = (w.App.Defaults && w.App.Defaults.recipes) ? w.App.Defaults.recipes : [];
+    var map = {};
+    defaults.forEach(function(r){ map[r.id] = r; });
+    var changed = false;
+    state.recipes = (state.recipes||[]).map(function(r){
+      var c = map[r.id];
+      if(c){
+        var ingEqual = JSON.stringify(r.ingredients||[]) === JSON.stringify(c.ingredients||[]);
+        var stepsEqual = JSON.stringify(r.steps||[]) === JSON.stringify(c.steps||[]);
+        if(!ingEqual || !stepsEqual){
+          r = Object.assign({}, r, {
+            ingredients: c.ingredients,
+            steps: c.steps,
+            time: c.time || r.time,
+            servings: c.servings || r.servings
+          });
           changed = true;
         }
       }

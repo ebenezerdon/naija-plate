@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-page="recipes">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naija Plate • Recipes</title>
+  <meta name="description" content="Browse Nigerian recipes and add ingredients to your shopping list.">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Work+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.10/tailwindcss.js"></script>
+  <style type="text/tailwindcss" data-teda="tailwind-apply">
+    @layer components {
+      .btn-primary { @apply bg-[#0B7A3B] text-white px-4 py-2 rounded-full font-semibold whitespace-nowrap shadow-lg hover:bg-[#0a6c35] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9be5bf] active:scale-[0.98] transition-all duration-300; }
+      .btn-secondary { @apply bg-white text-[#0B7A3B] px-4 py-2 rounded-full font-semibold whitespace-nowrap ring-1 ring-black/5 hover:bg-[#F7FFF9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7F1DC] transition-all duration-300; }
+      .btn-ghost { @apply text-[#0B1F1A] hover:text-[#0B7A3B] px-3 py-2 rounded-md transition-all; }
+      .card { @apply bg-white rounded-2xl ring-1 ring-black/5 shadow-sm hover:shadow-xl transition-all duration-300; }
+      .chip { @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm ring-1 ring-black/5 bg-white hover:bg-[#F9FFF9] transition-all duration-300 cursor-pointer; }
+      .input { @apply w-full px-4 py-3 rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-[#9be5bf] outline-none; }
+      .tag { @apply inline-flex items-center px-2.5 py-1 rounded-full bg-[#E8F7EE] text-[#0B7A3B] text-xs font-semibold; }
+      .badge { @apply inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[#FFF3E6] text-[#8C4B10] text-xs font-semibold; }
+      .modal-backdrop { @apply fixed inset-0 bg-black/40 z-40; }
+      .modal { @apply fixed inset-0 z-50 flex items-start md:items-center justify-center p-4 overflow-y-auto; }
+      .modal-card { @apply bg-white rounded-2xl shadow-xl ring-1 ring-black/5 max-w-2xl w-[92%] p-6 my-6 max-h-[85vh] overflow-y-auto; }
+    }
+  </style>
+</head>
+<body class="bg-[#FAFAF8] text-[#0B1F1A] antialiased" style="font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur ring-1 ring-black/5">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="assets/logo.svg" alt="Naija Plate logo" class="h-8 w-8"/>
+        <span class="font-extrabold tracking-tight" style="font-family:'Work Sans', sans-serif;">Naija Plate</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="btn-ghost" href="shopping.html">Shopping list</a>
+        <button id="openNewRecipe" class="btn-secondary">Add recipe</button>
+      </nav>
+      <button id="openNewRecipeSm" class="md:hidden btn-secondary">Add recipe</button>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-6 py-6">
+    <section class="mb-6">
+      <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div class="w-full md:w-1/2">
+          <label class="block text-sm font-semibold mb-2" for="searchInput">Search recipes</label>
+          <input id="searchInput" type="search" placeholder="Search by name, ingredient, or tag" class="input" />
+        </div>
+        <div class="flex flex-wrap gap-2" aria-label="Tags filter">
+          <button class="chip" data-tag="spicy">Spicy</button>
+          <button class="chip" data-tag="vegan">Vegan</button>
+          <button class="chip" data-tag="soup">Soup</button>
+          <button class="chip" data-tag="street">Street</button>
+          <button class="chip" data-tag="stew">Stew</button>
+          <button class="chip" data-tag="quick">Quick</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div id="recipesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+  </main>
+
+  <!-- Recipe Modal -->
+  <div id="recipeModalBackdrop" class="modal-backdrop hidden" aria-hidden="true"></div>
+  <section id="recipeModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="recipeTitle">
+    <div class="modal-card">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 id="recipeTitle" class="text-2xl font-extrabold" style="font-family:'Work Sans', sans-serif;"></h2>
+          <div id="recipeMeta" class="mt-1 text-sm text-[#2E3B36]"></div>
+        </div>
+        <button id="closeRecipe" class="btn-secondary">Close</button>
+      </div>
+      <img id="recipeImage" alt="Recipe image" class="w-full h-56 object-cover rounded-xl mt-4 ring-1 ring-black/5" onerror="this.onerror=null;this.src='assets/images/placeholder.svg';" />
+      <div class="mt-5 flex flex-wrap gap-2" id="recipeTags"></div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-bold mb-2" style="font-family:'Work Sans', sans-serif;">Ingredients</h3>
+          <ul id="recipeIngredients" class="space-y-2 text-sm"></ul>
+          <button id="addAllToList" class="btn-primary mt-4">Add all to shopping list</button>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2" style="font-family:'Work Sans', sans-serif;">Steps</h3>
+          <ol id="recipeSteps" class="space-y-3 text-sm list-decimal pl-5"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Recipe Modal -->
+  <div id="newRecipeBackdrop" class="modal-backdrop hidden" aria-hidden="true"></div>
+  <section id="newRecipeModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="newRecipeTitle">
+    <div class="modal-card max-w-3xl">
+      <div class="flex items-start justify-between gap-4">
+        <h2 id="newRecipeTitle" class="text-2xl font-extrabold" style="font-family:'Work Sans', sans-serif;">Add your recipe</h2>
+        <button id="closeNewRecipe" class="btn-secondary">Close</button>
+      </div>
+      <form id="newRecipeForm" class="mt-4 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-semibold">Title</label>
+            <input name="title" required class="input" placeholder="Egusi Soup" />
+          </div>
+          <div>
+            <label class="text-sm font-semibold">Image URL</label>
+            <input name="image" class="input" placeholder="https://..." />
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="text-sm font-semibold">Tags (comma separated)</label>
+            <input name="tags" class="input" placeholder="soup, spicy" />
+          </div>
+          <div>
+            <label class="text-sm font-semibold">Time (mins)</label>
+            <input name="time" class="input" type="number" min="1" placeholder="45" />
+          </div>
+          <div>
+            <label class="text-sm font-semibold">Servings</label>
+            <input name="servings" class="input" type="number" min="1" placeholder="4" />
+          </div>
+        </div>
+        <div>
+          <label class="text-sm font-semibold">Ingredients (one per line: name | qty | unit | category)</label>
+          <textarea name="ingredients" rows="5" class="input" placeholder="Egusi seeds | 2 | cups | pantry\nPalm oil | 3 | tbsp | pantry\nBeef | 500 | g | protein\nScotch bonnet | 2 | pcs | produce"></textarea>
+        </div>
+        <div>
+          <label class="text-sm font-semibold">Steps (one per line)</label>
+          <textarea name="steps" rows="5" class="input" placeholder="Heat oil...\nBlend peppers..."></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" class="btn-secondary" id="cancelNewRecipe">Cancel</button>
+          <button type="submit" class="btn-primary">Save recipe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="scripts/helpers.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

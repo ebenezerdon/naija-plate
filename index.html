@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naija Plate • Nigerian Recipes</title>
+  <meta name="description" content="Cook authentic Nigerian recipes with a smart shopping list.">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Work+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.10/tailwindcss.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style type="text/tailwindcss" data-teda="tailwind-apply">
+    @layer components {
+      .btn-primary { @apply bg-[#0B7A3B] text-white px-5 py-3 rounded-full font-semibold whitespace-nowrap shadow-lg hover:bg-[#0a6c35] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9be5bf] active:scale-[0.98] transition-all duration-300; }
+      .btn-secondary { @apply bg-white text-[#0B7A3B] px-5 py-3 rounded-full font-semibold whitespace-nowrap ring-1 ring-black/5 hover:bg-[#F7FFF9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7F1DC] transition-all duration-300; }
+      .card { @apply bg-white rounded-2xl ring-1 ring-black/5 shadow-sm hover:shadow-xl transition-all duration-300; }
+      .chip { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm ring-1 ring-black/5 bg-white hover:bg-[#F9FFF9] transition-all duration-300; }
+      .pill { @apply px-3 py-1 rounded-full text-xs font-semibold bg-[#E8F7EE] text-[#0B7A3B]; }
+      .nav-link { @apply text-sm font-semibold text-[#0B1F1A] hover:text-[#0B7A3B] transition-colors; }
+    }
+  </style>
+</head>
+<body class="bg-[#FAFAF8] text-[#0B1F1A] antialiased" style="font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur ring-1 ring-black/5">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="assets/logo.svg" alt="Naija Plate logo" class="h-9 w-9"/>
+        <span class="font-extrabold tracking-tight" style="font-family:'Work Sans', sans-serif;">Naija Plate</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#stories">Stories</a>
+        <a class="nav-link" href="#cta">Get Started</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="shopping.html" class="btn-secondary z-30">Shopping list</a>
+        <a href="app.html" class="btn-primary z-30">Explore recipes</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO: editorial, asymmetric layout -->
+    <section class="relative overflow-hidden pt-14 md:pt-20 pb-16 md:pb-20">
+      <div class="mx-auto max-w-7xl px-6 relative">
+        <div class="absolute -top-10 -left-10 w-60 h-60 rounded-full bg-[#E8F7EE] blur-2xl opacity-60 pointer-events-none"></div>
+        <div class="absolute -bottom-8 -right-8 w-72 h-72 rounded-full bg-[#FFF3E6] blur-2xl opacity-70 pointer-events-none"></div>
+
+        <div class="relative">
+          <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight max-w-4xl" style="font-family: 'Work Sans', sans-serif;">
+            Taste Nigeria at home with recipes that sing.
+          </h1>
+          <div class="mt-6 max-w-xl text-lg md:text-xl text-[#2E3B36]">
+            <p>From smoky Jollof to soulful Egusi, master beloved classics with step-by-step guidance and a smart shopping list that remembers everything for you.</p>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="app.html" class="btn-primary">Start cooking</a>
+            <a href="shopping.html" class="btn-secondary">Open your list</a>
+          </div>
+
+          <!-- Pull quote with irregular wrap -->
+          <figure class="mt-12 md:mt-16 relative">
+            <img alt="Jollof rice bowl" class="hero-blob rounded-full shadow-xl ring-1 ring-black/5" src="https://images.unsplash.com/photo-1604908554027-0c9f5d842dce?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='assets/images/placeholder.svg';"/>
+            <blockquote class="ml-0 md:ml-[42%] mt-6 md:mt-0 text-xl md:text-2xl font-semibold leading-relaxed">
+              <span class="block pill w-max -mb-1">Editor's pick</span>
+              
+              <span class="block mt-4">Palm oil, peppers, and rhythm in every pot. Cook like home, wherever you are.</span>
+            </blockquote>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features: asymmetric cards, no strict grid -->
+    <section id="features" class="relative py-12 md:py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mb-10">
+          <h2 class="text-3xl md:text-5xl font-extrabold" style="font-family:'Work Sans', sans-serif;">Built for your kitchen rhythm</h2>
+        </div>
+        <div class="space-y-6">
+          <article class="card p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold" style="font-family:'Work Sans', sans-serif;">Curated Nigerian favorites</h3>
+              <p class="mt-2 text-[#2E3B36]">A handpicked collection covering Jollof, Suya, Efo Riro, Moi Moi, Puff Puff, and more. Every recipe is tested and delicious.</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="pill">Jollof</span>
+                <span class="pill">Street food</span>
+                <span class="pill">Soups & stews</span>
+              </div>
+            </div>
+            <img alt="Suya skewers" class="w-full md:w-64 rounded-xl object-cover shadow-lg" src="https://images.unsplash.com/photo-1515007917929-9f66f0c2d2ab?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='assets/images/placeholder.svg';"/>
+          </article>
+
+          <article class="card p-6 md:p-8 relative">
+            <div class="md:max-w-3xl">
+              <h3 class="text-2xl font-bold" style="font-family:'Work Sans', sans-serif;">Smart shopping list</h3>
+              <p class="mt-2 text-[#2E3B36]">Add ingredients with one tap, auto-merge duplicates, organize by category, and check off as you shop. Your list saves itself.</p>
+              <div class="mt-4">
+                <a href="shopping.html" class="chip">Open shopping list <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+            <div class="absolute right-6 bottom-6 hidden md:block">
+              <span class="pill">Persistent</span>
+            </div>
+          </article>
+
+          <article class="card p-6 md:p-8 flex flex-col md:flex-row gap-6">
+            <img alt="Cooking pot" class="w-full md:w-64 rounded-xl object-cover shadow-lg" src="https://images.unsplash.com/photo-1526312426976-593c2b999f76?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='assets/images/placeholder.svg';"/>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold" style="font-family:'Work Sans', sans-serif;">Cook mode</h3>
+              <p class="mt-2 text-[#2E3B36]">Step-by-step instructions with generous spacing and readable type so you can focus on the food.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="stories" class="py-12 md:py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="card p-8 md:p-12">
+          <div class="flex flex-col md:flex-row gap-8 items-start">
+            <div class="flex-1">
+              <h3 class="text-2xl md:text-3xl font-extrabold" style="font-family:'Work Sans', sans-serif;">From Lagos to your table</h3>
+              <p class="mt-3 text-[#2E3B36]">We celebrate ingredients that define home: scotch bonnet, uziza, crayfish, fermented locust beans. Follow trusted steps and cook unforgettable meals.</p>
+            </div>
+            <div class="flex-1">
+              <div class="bg-[#0B7A3B] text-white rounded-2xl p-6 shadow-lg">
+                <p class="text-lg md:text-xl font-semibold">“My kitchen finally sounds like weekends with family. The list keeps me on track and the recipes just work.”</p>
+                <div class="mt-3 text-sm opacity-90">Ada, Abuja</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta" class="py-14">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="card p-8 md:p-12 text-center">
+          <h4 class="text-2xl md:text-3xl font-extrabold" style="font-family:'Work Sans', sans-serif;">Ready to cook something special?</h4>
+          <p class="mt-3 text-[#2E3B36]">Dive into Nigerian classics and build a list that saves your time at the market.</p>
+          <div class="mt-6 flex justify-center gap-3">
+            <a href="app.html" class="btn-primary">Explore recipes</a>
+            <a href="shopping.html" class="btn-secondary">Go to list</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 border-t border-black/5">
+    <div class="mx-auto max-w-7xl px-6 flex items-center justify-between">
+      <p class="text-sm">© <span id="year"></span> Naija Plate</p>
+      <div class="flex items-center gap-4 text-sm">
+        <a class="nav-link" href="app.html">Recipes</a>
+        <a class="nav-link" href="shopping.html">Shopping list</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    $(function(){ $('#year').text(new Date().getFullYear()); });
+  </script>
+  <script src="scripts/helpers.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Efo Riro illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#F2FFF5"/>
+      <stop offset="1" stop-color="#E5FAEA"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="6" stdDeviation="20" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g transform="translate(800,460)">
+    <ellipse rx="520" ry="200" fill="#CFE7D4"/>
+  </g>
+  <g transform="translate(800,420)" filter="url(#shadow)">
+    <circle r="300" fill="#FFFFFF" stroke="#D7E8DA" stroke-width="10"/>
+    <circle r="260" fill="#2E7D32"/>
+    <g>
+      <circle cx="-110" cy="-30" r="34" fill="#C13F24"/>
+      <circle cx="40" cy="-70" r="30" fill="#C13F24"/>
+      <circle cx="90" cy="40" r="26" fill="#C13F24"/>
+      <circle cx="-40" cy="90" r="22" fill="#C13F24"/>
+    </g>
+    <g>
+      <ellipse cx="-60" cy="-100" rx="42" ry="28" fill="#F0C78A"/>
+      <ellipse cx="120" cy="-20" rx="50" ry="30" fill="#F0C78A"/>
+      <ellipse cx="-10" cy="60" rx="36" ry="24" fill="#F0C78A"/>
+    </g>
+  </g>
+  <text x="800" y="820" text-anchor="middle" font-family="Work Sans, Arial, sans-serif" font-size="48" font-weight="800" fill="#0B1F1A">Efo Riro</text>
+</svg>

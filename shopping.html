@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-page="shopping">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naija Plate • Shopping List</title>
+  <meta name="description" content="Organize your Nigerian recipe ingredients with a smart, persistent shopping list.">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Work+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.10/tailwindcss.js"></script>
+  <style type="text/tailwindcss" data-teda="tailwind-apply">
+    @layer components {
+      .btn-primary { @apply bg-[#0B7A3B] text-white px-4 py-2 rounded-full font-semibold whitespace-nowrap shadow-lg hover:bg-[#0a6c35] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9be5bf] active:scale-[0.98] transition-all duration-300; }
+      .btn-secondary { @apply bg-white text-[#0B7A3B] px-4 py-2 rounded-full font-semibold whitespace-nowrap ring-1 ring-black/5 hover:bg-[#F7FFF9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C7F1DC] transition-all duration-300; }
+      .btn-danger { @apply bg-[#8C1D18] text-white px-4 py-2 rounded-full font-semibold whitespace-nowrap hover:bg-[#701410] transition-all; }
+      .input { @apply w-full px-4 py-3 rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-[#9be5bf] outline-none; }
+      .card { @apply bg-white rounded-2xl ring-1 ring-black/5 shadow-sm; }
+      .section-title { @apply text-xl font-extrabold mb-3; }
+      .list-item { @apply flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-[#F7FFF9] transition-all; }
+      .badge { @apply inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[#FFF3E6] text-[#8C4B10] text-xs font-semibold; }
+    }
+  </style>
+</head>
+<body class="bg-[#FAFAF8] text-[#0B1F1A] antialiased" style="font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur ring-1 ring-black/5">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="assets/logo.svg" alt="Naija Plate logo" class="h-8 w-8"/>
+        <span class="font-extrabold tracking-tight" style="font-family:'Work Sans', sans-serif;">Naija Plate</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-4">
+        <a class="btn-secondary" href="app.html">Recipes</a>
+      </nav>
+      <a class="md:hidden btn-secondary" href="app.html">Recipes</a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-6 py-6">
+    <section class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 items-start">
+      <!-- Left: list -->
+      <div class="card p-5 lg:p-6">
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-extrabold" style="font-family:'Work Sans', sans-serif;">Shopping list</h1>
+          <div class="flex flex-wrap gap-2">
+            <button id="mergeDuplicates" class="btn-secondary">Merge duplicates</button>
+            <button id="clearPurchased" class="btn-secondary">Clear purchased</button>
+            <button id="printList" class="btn-secondary">Print</button>
+          </div>
+        </div>
+        <div id="listContainer" class="mt-4 space-y-4"></div>
+      </div>
+
+      <!-- Right: add item / tools -->
+      <aside class="card p-5 lg:p-6">
+        <h2 class="section-title" style="font-family:'Work Sans', sans-serif;">Add item</h2>
+        <form id="addItemForm" class="space-y-3">
+          <div>
+            <label class="text-sm font-semibold">Name</label>
+            <input name="name" class="input" placeholder="Yam" required />
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="text-sm font-semibold">Qty</label>
+              <input name="qty" type="number" min="0" step="0.01" class="input" placeholder="1" />
+            </div>
+            <div>
+              <label class="text-sm font-semibold">Unit</label>
+              <input name="unit" class="input" placeholder="kg, pcs" />
+            </div>
+            <div>
+              <label class="text-sm font-semibold">Category</label>
+              <select name="category" class="input">
+                <option value="produce">Produce</option>
+                <option value="protein">Protein</option>
+                <option value="pantry">Pantry</option>
+                <option value="spices">Spices</option>
+                <option value="bakery">Bakery</option>
+                <option value="frozen">Frozen</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="reset" class="btn-secondary">Reset</button>
+            <button type="submit" class="btn-primary">Add</button>
+          </div>
+        </form>
+        <hr class="my-5 border-black/10"/>
+        <h2 class="section-title" style="font-family:'Work Sans', sans-serif;">Tools</h2>
+        <div class="flex flex-col gap-2">
+          <button id="exportList" class="btn-secondary">Copy to clipboard</button>
+          <button id="clearAll" class="btn-danger">Clear all</button>
+        </div>
+        <p class="mt-4 text-sm text-[#2E3B36]">Tip: Add ingredients from any recipe with one tap, then merge duplicates to tidy your list.</p>
+      </aside>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="scripts/helpers.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

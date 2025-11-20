@@ -35,11 +35,13 @@
         <a class="btn-ghost" href="shopping.html">Shopping list</a>
         <button id="openNewRecipe" class="btn-secondary">Add recipe</button>
       </nav>
-      <button id="openNewRecipeSm" class="md:hidden btn-secondary">Add recipe</button>
+      <div class="md:hidden flex items-center gap-2">
+        <a href="shopping.html" class="btn-secondary">Shopping list</a>
+      </div>
     </div>
   </header>
 
-  <main class="mx-auto max-w-7xl px-6 py-6">
+  <main class="mx-auto max-w-7xl px-6 pt-6 pb-24 md:py-6">
     <section class="mb-6">
       <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div class="w-full md:w-1/2">
@@ -61,6 +63,14 @@
       <div id="recipesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
   </main>
+
+  <!-- Mobile FAB: Add recipe -->
+  <div class="md:hidden fixed bottom-6 right-6 z-30">
+    <button id="openNewRecipeSm" class="btn-primary rounded-full shadow-xl px-4 py-3 flex items-center gap-2" aria-label="Add recipe">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 5a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H6a1 1 0 110-2h5V6a1 1 0 011-1z"/></svg>
+      <span>Add recipe</span>
+    </button>
+  </div>
 
   <!-- Recipe Modal -->
   <div id="recipeModalBackdrop" class="modal-backdrop hidden" aria-hidden="true"></div>
